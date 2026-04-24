@@ -45,9 +45,15 @@ Rules:
 
     const data = await response.json();
 
-    res.json({
-      reply: data.choices[0].message.content
-    });
+   const reply = data?.choices?.[0]?.message?.content;
+
+if(!reply){
+  return res.json({
+    reply: "⚠️ Zoopy busy hai, try again"
+  });
+}
+
+res.json({ reply });
 
   } catch (err) {
     res.json({ reply: "⚠️ Server busy hai, try again." });
